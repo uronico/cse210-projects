@@ -1,8 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+
 public class Entry
 {
-    public string _date { get; }
-    public string _promptText { get; }
-    public string _entryText { get; }
+    public string _date;
+    public string _promptText;
+    public string _entryText;
 
     public void Display()
     {

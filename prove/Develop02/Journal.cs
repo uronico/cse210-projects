@@ -1,24 +1,23 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.CompilerServices;
+
+
 public class Journal
 {
     private List<Entry> entries = new List<Entry>();
-    private List<string> prompts = new List<string>
-    {
-        "Who was the most interesting person I interacted with today?",
-        "What was the best part of my day?",
-        "How did I see the hand of the Lord in my life today?",
-        "What was the strongest emotion I felt today?",
-        "If I had one thing I could do over today, what would it be?"
-    };
 
     public void WriteNewEntry()
     {
-        string prompt = GetRandomPrompt();
-        Console.WriteLine($"Prompt: {prompt}");
+        PromptGenerator prompt = new PromptGenerator();
+        string random = prompt.GetRandomPrompt();
+        Console.WriteLine($"Prompt: {random}");
 
         Console.Write("Your response: ");
         string response = Console.ReadLine();
 
-        Entry newEntry = new Entry(prompt, response, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+        Entry newEntry = new Entry(random, response, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
         entries.Add(newEntry);
 
         Console.WriteLine("Entry added successfully!");
@@ -42,6 +41,7 @@ public class Journal
     {
         Console.WriteLine("Enter the filename to save the journal: ");
         string fileName = "journal.txt";
+        
 
         using (StreamWriter outputFile = new StreamWriter(fileName))
         {
@@ -81,10 +81,5 @@ public class Journal
         }
     }
 
-    private string GetRandomPrompt()
-    {
-        Random random = new Random();
-        int index = random.Next(prompts.Count);
-        return prompts[index];
-    }
+
 }
